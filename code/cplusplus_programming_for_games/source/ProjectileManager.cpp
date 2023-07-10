@@ -16,6 +16,13 @@ void ProjectileManager::init()
 		return;
 	}
 	SDL_FreeSurface(ribSprite);
+	
+	// ribs is the vector used to contain all rib objects
+	// push_back is the function in C++ which adds an element to the end of a vector
+	// add six ribs to rib vector
+	for (int i = 0; i < 6; i++) {
+		ribs.push_back(Rib{ 900, 0, player->getAngle(), 0.0f, 0 });
+	}
 }
 
 void ProjectileManager::processInput()
@@ -30,10 +37,28 @@ void ProjectileManager::processInput()
 
 			// ribs is the vector used to contain all rib objects
 			// push_back is the function in C++ which adds an element to the end of a vector
-			ribs.push_back(Rib{ player->getX(), player->getY(), player->getAngle(), 0.0f });
+			// ribs.push_back(Rib{ player->getX(), player->getY(), player->getAngle(), 0.0f });
 			lastShot = SDL_GetTicks();
+
+			/*for (auto& r : ribs) {
+				r.x = player->getX();
+				r.y = player->getY();
+				r.rotation = player->getAngle();
+				r.distance = 0.0f;
+				r.velocity = 8;
+			}*/
+			int ammoLevel = player->getAmmo() - 1;
+			ribs[ammoLevel].x = player->getX();
+			ribs[ammoLevel].y = player->getY();
+			ribs[ammoLevel].rotation = player->getAngle();
+			ribs[ammoLevel].distance = 0.0f;
+			ribs[ammoLevel].velocity = 8;
+
 			player->setAmmo(-1);
+			
 		}
+		std::cout << "Player ammo: " << player->getAmmo() << std::endl;
+		std::cout << "Ribs size: " << ribs.size() << std::endl;
 	}
 }
 
@@ -56,8 +81,11 @@ void ProjectileManager::update()
 		SDL_Rect nullRect;
 		if (SDL_IntersectRect(&ribRect, &playerRect, &nullRect) && (r.velocity == 0) && (player->keyStates[INTERACT]))
 		{
-			r.distance = 1001;
+			//r.distance = 1001;
+			r.x = 900;
 			player->setAmmo(1);
+			std::cout << "Player ammo: " << player->getAmmo() << std::endl;
+			std::cout << "Ribs size: " << ribs.size() << std::endl;
 		}
 
 		
@@ -86,6 +114,8 @@ void ProjectileManager::update()
 	auto remove = std::remove_if(ribs.begin(), ribs.end(),
 		[](const Rib& r)
 		{
+			if (r.distance > 1000)
+				std::cout << "rib removed" << std::endl;
 			return r.distance > 1000;
 		});
 	ribs.erase(remove, ribs.end());

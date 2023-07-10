@@ -173,7 +173,34 @@ void Player::update()
 
 void Player::clean()
 {
+	mapPlayer = nullptr;
+	scoreText = nullptr;
+	scoreTxtTexture = nullptr;
+	scoreNum = nullptr;
+	scoreNumTexture = nullptr;
+	timerText = nullptr;
+	timerTxtTexture = nullptr;
+	timerNum = nullptr;
+	timerNumTexture = nullptr;
+	renderer = nullptr;
+	texture = nullptr;
+	fontUI = nullptr;
+
+	delete mapPlayer;
+	delete scoreText;
+	delete scoreTxtTexture;
+	delete scoreNum;
+	delete scoreNumTexture;
+	delete timerText;
+	delete timerTxtTexture;
+	delete timerNum;
+	delete timerNumTexture;
+	// delete renderer;
+	// delete texture;
+	delete fontUI;
+
 	SDL_DestroyTexture(texture);
+	SDL_DestroyRenderer(renderer);
 }
 
 

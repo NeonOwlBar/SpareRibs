@@ -29,7 +29,7 @@ class Player
 {
 public:
 	Player(SDL_Renderer* sdlRenderer, float _windowWidth, float _windowHeight, std::string filename); 
-	// virtual ~Player() { clean(); };	// destructor
+	virtual ~Player() { clean(); };	// destructor
 
 	// Array stores key states, making them accessible as bools
 	// Each key is set to true if pressed.
