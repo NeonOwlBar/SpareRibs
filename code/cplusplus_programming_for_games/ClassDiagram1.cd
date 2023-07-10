@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EnemyZombie">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="EnemyZombie::Zombie">
+        <TypeIdentifier>
+          <NewMemberFileName>source\EnemyZombie.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAEAQAAAIAAAIAAggAAAAAACAACAAAIBAAJBQAgUgAg=</HashCode>
+      <FileName>source\EnemyZombie.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectileManager">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="ProjectileManager::Rib">
+        <TypeIdentifier>
+          <NewMemberFileName>source\ProjectileManager.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AkAAQAAAAAABAAAAAgAAAGAgAAAgQAIBAABAAAAUgMA=</HashCode>
+      <FileName>source\ProjectileManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FontRenderer">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAABAAAAAAIAAABAAAAQgAA=</HashCode>
+      <FileName>source\FontRenderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="GetAmmo" Hidden="true" />
+      <Method Name="GetAngle" Hidden="true" />
+      <Method Name="GetHealth" Hidden="true" />
+      <Method Name="GetScore" Hidden="true" />
+      <Method Name="GetScoreStr" Hidden="true" />
+      <Method Name="GetSpeed" Hidden="true" />
+      <Method Name="GetX" Hidden="true" />
+      <Method Name="GetY" Hidden="true" />
+      <Method Name="SetAmmo" Hidden="true" />
+      <Method Name="SetAngle" Hidden="true" />
+      <Method Name="setAnimFrame" Hidden="true" />
+      <Method Name="SetHealth" Hidden="true" />
+      <Method Name="SetPosition" Hidden="true" />
+      <Method Name="SetScore" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>RBEEGQAKAQAEkQEUA0AKAEiAABmigwKEYApEg2A0wII=</HashCode>
+      <FileName>source\Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameLoop">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAgAAAIAAAAAAAAAAAAAAAABQIJAABAAAAUgAA=</HashCode>
+      <FileName>source\GameLoop.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiledMap">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAABAAAAAIAAAAAAAAAEAAAAgAgIAAABAAAAQgAE=</HashCode>
+      <FileName>source\TiledMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="KeyStates">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAQgICAAAgAAAAAAAAIAA=</HashCode>
+      <FileName>source\Player.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
