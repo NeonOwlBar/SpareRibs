@@ -21,12 +21,19 @@ void ProjectileManager::init()
 	// push_back is the function in C++ which adds an element to the end of a vector
 	// add six ribs to rib vector
 	for (int i = 0; i < 6; i++) {
-		ribs.push_back(Rib{ 900, 0, player->getAngle(), 0.0f, 0 });
+		// generates initial data for a rib
+		Rib rib = Rib{ 900, 0, player->getAngle(), 0.0f, 0 };
+		// adds rib instance to ribs vector
+		ribs.push_back(rib);
+		std::cout << " Rib created" << std::endl;
 	}
 }
 
 void ProjectileManager::processInput()
 {
+	int ammoLevel = player->getAmmo() - 1;
+
+	
 	if (player->keyStates[SHOOT] && (player->getAmmo() > 0))
 	{
 		// SDL_GetTicks() returns current time of game in ms
@@ -40,25 +47,23 @@ void ProjectileManager::processInput()
 			// ribs.push_back(Rib{ player->getX(), player->getY(), player->getAngle(), 0.0f });
 			lastShot = SDL_GetTicks();
 
-			/*for (auto& r : ribs) {
-				r.x = player->getX();
-				r.y = player->getY();
-				r.rotation = player->getAngle();
-				r.distance = 0.0f;
-				r.velocity = 8;
-			}*/
-			int ammoLevel = player->getAmmo() - 1;
-			ribs[ammoLevel].x = player->getX();
-			ribs[ammoLevel].y = player->getY();
-			ribs[ammoLevel].rotation = player->getAngle();
-			ribs[ammoLevel].distance = 0.0f;
-			ribs[ammoLevel].velocity = 8;
+			for (auto& r : ribs) {
+				// checks if ribs is throwable (not already thrown)
+				if (r.isThrowable == true) {
+					r.isThrowable = false;
+					r.x = player->getX();
+					r.y = player->getY() + player->getHeight() / 2;
+					r.rotation = player->getAngle();
+					r.distance = 0.0f;
+					r.velocity = 8;
+					break;	// ensures this only applies to the first 
+							// rib in vector which is throwable
+				}
+			}
 
 			player->setAmmo(-1);
-			
+
 		}
-		std::cout << "Player ammo: " << player->getAmmo() << std::endl;
-		std::cout << "Ribs size: " << ribs.size() << std::endl;
 	}
 }
 
@@ -83,9 +88,11 @@ void ProjectileManager::update()
 		{
 			//r.distance = 1001;
 			r.x = 900;
+			r.isThrowable = true;
+			std::cout << "Rib moved off screen" << std::endl;
 			player->setAmmo(1);
-			std::cout << "Player ammo: " << player->getAmmo() << std::endl;
-			std::cout << "Ribs size: " << ribs.size() << std::endl;
+			/*std::cout << "Player ammo: " << player->getAmmo() << std::endl;
+			std::cout << "Ribs size: " << ribs.size() << std::endl;*/
 		}
 
 		

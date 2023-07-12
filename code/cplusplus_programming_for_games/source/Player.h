@@ -50,6 +50,8 @@ public:
 
 	float getX();
 	float getY();
+	float getWidth();
+	float getHeight();
 	float getSpeed();	// allows speed to be read-only by other classes
 	float getAngle(); //const;	// makes angle accessible to other classes
 	int getAmmo();

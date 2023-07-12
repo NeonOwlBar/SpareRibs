@@ -154,7 +154,7 @@ void Player::update()
 		walkingAnim();
 	}
 
-	SDL_Rect playerPos = { getX(), getY(), playerWidth, playerHeight };
+	SDL_Rect playerPos = { getX(), getY() + (playerHeight / 3), playerWidth, playerHeight * 2 / 3 };
 	for (int i = 0; i < 12; i++)
 	{
 		for (int j = 0; j < 16; j++)
@@ -232,7 +232,7 @@ void Player::setPosition(float x, float y)
 
 void Player::setAngle(int x, int y)
 {
-	rotationAngle = (atan2((getY() - y), (getX() - x)) * 180 / PI) - 90;
+	rotationAngle = (atan2((getY() + (getHeight() / 2) - y), (getX() - x)) * 180 / PI) - 90;
 }
 
 void Player::setScore(int _score)
@@ -270,6 +270,16 @@ float Player::getX()
 float Player::getY()
 {
 	return dstRect.y;
+}
+
+float Player::getWidth()
+{
+	return dstRect.w;
+}
+
+float Player::getHeight()
+{
+	return dstRect.h;
 }
 
 int Player::getHealth()

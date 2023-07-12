@@ -32,7 +32,7 @@ void EnemyZombie::update()
 		//{
 		//	z.x = 800 + 150;	// zombie returns on right of screen
 		//}
-		SDL_Rect zombieRect = { z.x + 10, z.y, zomSizeX - 20, zomSizeY };
+		SDL_Rect zombieRect = { z.x + 10, z.y + (zomSizeY / 3), zomSizeX - 20, zomSizeY * 2 / 3 };
 		SDL_Rect nullRect;
 		for (auto& r : projectileManager->ribs)
 		{

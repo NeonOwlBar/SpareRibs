@@ -22,6 +22,7 @@ public:
 	{
 		float x, y, rotation, distance;
 		int velocity = 8;
+		bool isThrowable = true;
 	};
 
 	void init();
