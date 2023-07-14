@@ -8,6 +8,7 @@
 #include "TiledMap.h"
 #include "ProjectileManager.h"
 #include "EnemyZombie.h"
+#include "MainMenu.h"
 
 const int screenWidth = 800;
 const int screenHeight = 600;
@@ -17,12 +18,19 @@ class GameLoop
 public:
 	int init();
 
+	void menuUpdate();
+	void menuRender();
+	bool isMainMenu();
+
 	void update();
 	void render();
 	bool keepAlive();
+
 	void clean();
 
 private:
+
+	MainMenu* mainMenu = nullptr;
 
 	SDL_Window* window = nullptr;
 	SDL_Surface* screenSurface = nullptr;

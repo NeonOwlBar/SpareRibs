@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\MainMenu.cpp" />
     <ClCompile Include="source\EnemyZombie.cpp" />
     <ClCompile Include="source\ProjectileManager.cpp" />
     <ClCompile Include="source\FontRenderer.cpp" />
@@ -28,6 +29,7 @@
     <ClCompile Include="source\TiledMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\MainMenu.h" />
     <ClInclude Include="source\EnemyZombie.h" />
     <ClInclude Include="source\ProjectileManager.h" />
     <ClInclude Include="source\FontRenderer.h" />
