@@ -25,7 +25,7 @@
     <ClCompile Include="source\FontRenderer.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\GameLoop.cpp" />
-    <ClCompile Include="source\cplusplus_programming_for_games.cpp" />
+    <ClCompile Include="source\spare_ribs.cpp" />
     <ClCompile Include="source\TiledMap.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -44,7 +44,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{0898ad05-dfca-4896-8466-20dacc1c5a73}</ProjectGuid>
-    <RootNamespace>cplusplusprogrammingforgames</RootNamespace>
+    <RootNamespace>spareribs</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

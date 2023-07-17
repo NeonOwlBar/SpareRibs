@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\cplusplus_programming_for_games.cpp">
+    <ClCompile Include="source\spare_ribs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\GameLoop.cpp">

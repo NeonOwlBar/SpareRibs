@@ -148,7 +148,7 @@ bool GameLoop::keepAlive()
 		// checking for LMB
 		if (userInput.type == SDL_MOUSEBUTTONDOWN)
 		{
-			if (SDL_BUTTON(1))
+			if (userInput.button.button == SDL_BUTTON_LEFT)
 			{
 				player->keyStates[SHOOT] = true;
 				pm->processInput();
@@ -156,7 +156,7 @@ bool GameLoop::keepAlive()
 		}
 		if (userInput.type == SDL_MOUSEBUTTONUP)
 		{
-			if (SDL_BUTTON(1))
+			if (userInput.button.button == SDL_BUTTON_LEFT)
 			{
 				player->keyStates[SHOOT] = false;
 			}

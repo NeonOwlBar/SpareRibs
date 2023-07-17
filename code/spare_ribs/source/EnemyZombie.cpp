@@ -28,11 +28,9 @@ void EnemyZombie::update()
 	for (auto &z : zombies)
 	{
 		z.x += z.zomSpeed;
-		//if (z.x < -150)	// zombie goes off left of screen
-		//{
-		//	z.x = 800 + 150;	// zombie returns on right of screen
-		//}
-		SDL_Rect zombieRect = { z.x + 10, z.y + (zomSizeY / 3), zomSizeX - 20, zomSizeY * 2 / 3 };
+		
+		// full rect around zombie
+		SDL_Rect zombieRect = { z.x + 10, z.y, zomSizeX - 20, zomSizeY };
 		SDL_Rect nullRect;
 		for (auto& r : projectileManager->ribs)
 		{
@@ -60,6 +58,9 @@ void EnemyZombie::update()
 				lastHit = SDL_GetTicks();
 			}
 		}
+
+		// allows zombies to fit through smaller gaps
+		zombieRect = { z.x + 10, z.y + (zomSizeY / 3), zomSizeX - 20, zomSizeY * 2 / 3 };
 		for (int i = 0; i < 12; i++)
 		{
 			for (int j = 0; j < 16; j++)
