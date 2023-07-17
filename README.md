@@ -7,11 +7,8 @@
 You are a skeleton who must fight your way out of a dungeon before the wandering monsters dismantle you.
 
 How to run the program:
-* Unzip the folder
-* Open the bin folder
-* x64
-* Release
-* Open the cplusplus_programming_for_games application
+* Unzip the folder and follow the file path below
+* bin\x64\Release\cplusplus_programming_for_games.exe
 
 How to Play:
 * Use WASD or arrow keys to move around
@@ -34,13 +31,13 @@ Features:
 * SDL_Wiki (2022) _SDL_MouseButtonEvent_. Available at: https://wiki.libsdl.org/SDL2/SDL_MouseButtonEvent  [Accessed 8 December 2022].
 SDL_Wiki (2022) _SDL_GetMouseState_. Available at:https://wiki.libsdl.org/SDL2/SDL_GetMouseState [Accessed 8 December 2022]
 
-### Converting int to string to display score
+### Converting int to string for displaying score
 * Priya Pedamkar (no date) _C++ Int to String_. Available at: https://www.educba.com/c-plus-plus-int-to-string/
 
 ### Getting angle to mouse from player
 * joni (2012) _Calculating direction angle from x and y speed. Available at: https://stackoverflow.com/questions/9153980/calculating-direction-angle-from-x-and-y-speed [Accessed 7 December 2022]
 
-### TileMaps
+### Tile maps
 * Pixel_Poem (2018) _Pixel_Poem DungeonTileset_. Available at: https://pixel-poem.itch.io/dungeon-assetpuck [Accessed 30 December 2022].
 
 <br>
