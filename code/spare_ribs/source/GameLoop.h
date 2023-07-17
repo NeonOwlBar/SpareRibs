@@ -8,7 +8,7 @@
 #include "TiledMap.h"
 #include "ProjectileManager.h"
 #include "EnemyZombie.h"
-#include "MainMenu.h"
+//#include "MainMenu.h"
 
 const int screenWidth = 800;
 const int screenHeight = 600;
@@ -30,7 +30,7 @@ public:
 
 private:
 
-	MainMenu* mainMenu = nullptr;
+	//MainMenu* mainMenu = nullptr;
 
 	SDL_Window* window = nullptr;
 	SDL_Surface* screenSurface = nullptr;

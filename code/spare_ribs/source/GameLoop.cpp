@@ -39,8 +39,8 @@ int GameLoop::init()
 		return 1;
 	}
 
-	mainMenu = new MainMenu();
-	mainMenu->init(renderer);
+	/*mainMenu = new MainMenu();
+	mainMenu->init(renderer);*/
 
 	//instantiating objects
 	player = new Player(renderer, screenWidth, screenHeight, "assets/RibAstleyWalking.png");
@@ -78,36 +78,36 @@ void GameLoop::menuRender()
 	SDL_RenderPresent(renderer);
 }
 
-bool GameLoop::isMainMenu()
-{
-	// consider making this a bool variable to check within keepAlive(), 
-	// and add if statements into it to decide what to run depending on 
-	// if main menu or game is active
-
-	SDL_Event userInput;
-	while (SDL_PollEvent(&userInput))
-	{
-		if (userInput.type == SDL_KEYDOWN)
-		{
-			switch (userInput.key.keysym.sym)
-			{
-			case SDLK_q:
-				return false;
-				break;
-			case SDLK_LEFT:
-				std::cout << "Left arrow key pressed" << std::endl;
-				break;
-			default:
-				std::cout << "default case activated" << std::endl;
-			}
-		}
-
-	}
-
-	mainMenu->menuUpdate();
-	mainMenu->menuRender();
-	return mainMenu->menuAlive();
-}
+//bool GameLoop::isMainMenu()
+//{
+//	// consider making this a bool variable to check within keepAlive(), 
+//	// and add if statements into it to decide what to run depending on 
+//	// if main menu or game is active
+//
+//	SDL_Event userInput;
+//	while (SDL_PollEvent(&userInput))
+//	{
+//		if (userInput.type == SDL_KEYDOWN)
+//		{
+//			switch (userInput.key.keysym.sym)
+//			{
+//			case SDLK_q:
+//				return false;
+//				break;
+//			case SDLK_LEFT:
+//				std::cout << "Left arrow key pressed" << std::endl;
+//				break;
+//			default:
+//				std::cout << "default case activated" << std::endl;
+//			}
+//		}
+//
+//	}
+//
+//	mainMenu->menuUpdate();
+//	mainMenu->menuRender();
+//	return mainMenu->menuAlive();
+//}
 
 void GameLoop::update()
 {
