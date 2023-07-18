@@ -6,7 +6,20 @@
 #include "GameLoop.h"
 //#include "MainMenu.h"
 
+// Preprocessor directive to only have console appear when in debug config
+// 
+// To undo this, only use int main() (remove int WinMain(), along with preprocessor directives), and in project properties do the following:
+//      - in Release config
+//      - Linker > System > Subsystem
+//      - set Subsystem to Console
+// 
+//      - This is set to Windows inside Release config to remove console.
+
+#ifdef _DEBUG
 int main()
+#else
+int WinMain()
+#endif // DEBUG
 {
     GameLoop gameLoop = GameLoop();
     //MainMenu mainMenu = MainMenu();
