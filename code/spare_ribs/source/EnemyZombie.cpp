@@ -17,18 +17,46 @@ void EnemyZombie::init()
 	SDL_FreeSurface(zombieSprite);
 	lastAnimChange = SDL_GetTicks();
 
+	srand(time(NULL));
+
 	for (int i = 0; i < MAX_ZOMBIES; i++)
 	{
-		zombies.push_back(Zombie{ rand() % (250 - zomSizeX) + 500, rand() % (500 - zomSizeY) + 50, 1 }); // third parameter is speed
+		// initiliased with default values
+		Zombie zombie;
+		// assigning undefined values
+		zombie.x = rand() % (250 - zomSizeX) + 500;
+		zombie.y = rand() % (500 - zomSizeY) + 50;
+		zombie.val = i + 1;
+		zombies.push_back(zombie);
+
+		//zombies.push_back(Zombie{ 
+		//	rand() % (250 - zomSizeX) + 500,	// x pos
+		//	rand() % (500 - zomSizeY) + 50,		// y pos
+		//	1,									// speed
+		//	2,									// health
+		//	2,									// max health
+		//	40,									// pixel width
+		//	40 / 2,								// unit factor = pixel width / max health
+		//	i + 1								// value
+		//  false								// hitWall
+		//	});
 	}
 }
 
 void EnemyZombie::update()
 {
+	if (zombiesDefeated >= MAX_ZOMBIES)
+	{
+		spawnWave();
+	}
+
 	for (auto &z : zombies)
 	{
+		// skips to next zombie if current zombie is defeated
+		if (!z.isAlive) continue;
+
 		z.x += z.zomSpeed;
-		
+
 		// full rect around zombie
 		SDL_Rect zombieRect = { z.x + 10, z.y, zomSizeX - 20, zomSizeY };
 		SDL_Rect nullRect;
@@ -41,13 +69,15 @@ void EnemyZombie::update()
 				z.health -= 1;
 				if (z.health <= 0)
 				{
+					z.zomSpeed = 0;
 					z.x = 801;	// this is checked later to move the zombie
+					z.isAlive = false;
+					zombiesDefeated += 1;
 					player->setScore(1);
-				}				
+				}
 			}
 		}
 
-		
 
 		SDL_Rect playerRect = { player->getX(), player->getY(), 60, 120 };
 		if (SDL_GetTicks() - lastHit > hitTimerMS)	// provides invincibility frames
@@ -61,27 +91,30 @@ void EnemyZombie::update()
 
 		// allows zombies to fit through smaller gaps
 		zombieRect = { z.x + 10, z.y + (zomSizeY / 3), zomSizeX - 20, zomSizeY * 2 / 3 };
+		z.hitWall = false;
 		for (int i = 0; i < 12; i++)
 		{
 			for (int j = 0; j < 16; j++)
 			{
-				if (mapZom->collisionLvl1[i][j] == 1)
-				{
-					SDL_Rect mapTile = { j * 50, i * 50, 50, 50 };
-					if (SDL_HasIntersection(&zombieRect, &mapTile))
+				if (z.hitWall == false) {
+					if (mapZom->collisionLvl1[i][j] == 1)
 					{
-						z.zomSpeed *= -1;
+						SDL_Rect mapTile = { j * 50, i * 50, 50, 50 };
+						if (SDL_HasIntersection(&zombieRect, &mapTile))
+						{
+							z.zomSpeed *= -1;
+							z.hitWall = true;
+						}
 					}
 				}
 			}
 		}
-
 	}
 
 	auto remove = std::remove_if(zombies.begin(), zombies.end(),
 		[](const Zombie& z)
 		{
-			return z.x > 800;
+			return z.x > 1000;
 		});
 	zombies.erase(remove, zombies.end());
 
@@ -95,11 +128,11 @@ void EnemyZombie::update()
 	{
 		animFrame = 1;
 	}
-	if (zombies.size() == 0)	// if no. of zombies < max allowed
+	if (zombies.size() < MAX_ZOMBIES)	// if no. of zombies < max allowed
 	{
 		for (int i = 0; i < MAX_ZOMBIES; i++)
 		{
-			zombies.push_back(Zombie{ rand() % (250 - zomSizeX) + 500, rand() % (500 - zomSizeY) + 50, 1 }); // third parameter is speed
+			zombies.push_back(Zombie{ 801, 50, 0 }); // xPos, yPos, speed
 		}
 	}
 }
@@ -108,6 +141,8 @@ void EnemyZombie::render()
 {
 	for (auto &z : zombies)
 	{
+		// skips to next zombie if current is defeated
+		if (!z.isAlive) continue;
 		int hpWidth = z.health * z.unitFactor;
 
 		SDL_Rect healthBackground = { z.x + 10, (z.y - 10), z.pixelWidth, 7 };	// red background bar
@@ -129,11 +164,22 @@ void EnemyZombie::render()
 		{
 			SDL_RenderCopyEx(renderer, zombieTexture, &src, &dest, 0, NULL, SDL_FLIP_NONE);
 		}
-		
 	}
 }
 
 void EnemyZombie::clean()
 {
 	SDL_DestroyTexture(this->zombieTexture);
+}
+
+void EnemyZombie::spawnWave()
+{
+	zombiesDefeated = 0;
+	for (auto &z : zombies) {
+		z.x = rand() % (250 - zomSizeX) + 500;
+		z.y = rand() % (500 - zomSizeY) + 50;
+		z.health = z.maxHealth;
+		z.zomSpeed = 1;
+		z.isAlive = true;
+	}
 }

@@ -4,6 +4,7 @@
 #include <SDL_image.h>
 #include <vector>
 #include <iostream>
+#include <time.h>
 #include "ProjectileManager.h"
 #include "Player.h"
 #include "TiledMap.h"
@@ -24,13 +25,17 @@ public:
 		int maxHealth = 2;
 		int pixelWidth = 40;
 		int unitFactor = pixelWidth / maxHealth;	//	100HP total, unit factor represents 1HP
-		
+		int val;
+		bool hitWall = false;
+		bool isAlive = true;
 	};
 
 	void init();
 	void update();
 	void render();
 	void clean();
+
+	void spawnWave();
 
 	TiledMap* mapZom;
 
@@ -52,5 +57,7 @@ private:
 	int animFrame = 0;
 	int ANIMATION_SPEED = 250; // number of ms between frames
 	long int lastAnimChange = 0;
+
+	int zombiesDefeated = 0;
 };
 

@@ -19,7 +19,7 @@
 int main()
 #else
 int WinMain()
-#endif // DEBUG
+#endif
 {
     GameLoop gameLoop = GameLoop();
     //MainMenu mainMenu = MainMenu();

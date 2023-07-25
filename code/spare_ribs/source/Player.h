@@ -43,7 +43,8 @@ public:
 	void walkingAnim();
 	int setAnimFrame();
 	void setPosition(float x, float y);
-	void setAngle(int x, int y);
+	void setThrowAngle(int x, int y);
+	void setSpinAngle(int x, int y);
 	void setAmmo(int change);
 	void setHealth(int change);
 	void setScore(int score);
@@ -53,7 +54,8 @@ public:
 	float getWidth();
 	float getHeight();
 	float getSpeed();	// allows speed to be read-only by other classes
-	float getAngle(); //const;	// makes angle accessible to other classes
+	float getThrowAngle(); //const;	// makes angle accessible to other classes
+	float getSpinAngle();
 	int getAmmo();
 	int getHealth();
 	int getScore();
@@ -67,7 +69,8 @@ private:
 	std::string timeStr;
 
 	float speed = 3;	// player speed
-	float rotationAngle;	// for shooting in direction of mouse
+	float throwAngle;	// for shooting in direction of mouse
+	float spinAngle;	// for spinning rib
 	int ammoLevel = 6;
 	int maxHP = 100;
 	int currentHP = 100;

@@ -20,7 +20,7 @@ public:
 
 	struct Rib
 	{
-		float x, y, rotation, distance;
+		float x, y, throwRotation, spinRotation, distance;
 		int velocity = 8;
 		bool isThrowable = true;
 	};

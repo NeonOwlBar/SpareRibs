@@ -140,7 +140,7 @@ void Player::update()
 	}
 	if (keyStates[RIGHT])
 	{
-		setPosition((float)getX() + (float)getSpeed(), getY());
+		setPosition(getX() + (float)getSpeed(), getY());
 		walkingAnim();
 	}
 	if (keyStates[UP])
@@ -150,11 +150,13 @@ void Player::update()
 	}
 	if (keyStates[DOWN])
 	{
-		setPosition(getX(), (float)getY() + (float)getSpeed());
+		setPosition(getX(), getY() + (float)getSpeed());
 		walkingAnim();
 	}
 
-	SDL_Rect playerPos = { getX(), getY() + (playerHeight / 3), playerWidth, playerHeight * 2 / 3 };
+	int newX = getX();
+	int newY = getY();
+	SDL_Rect playerPos = { newX, newY + (playerHeight / 3), playerWidth, playerHeight * 2 / 3 };
 	for (int i = 0; i < 12; i++)
 	{
 		for (int j = 0; j < 16; j++)
@@ -162,9 +164,25 @@ void Player::update()
 			if (mapPlayer->collisionLvl1[i][j] == 1)
 			{
 				SDL_Rect mapTile = { j * 50, i * 50, 50, 50 };
+
 				if (SDL_HasIntersection(&playerPos, &mapTile))
 				{
 					setPosition(oldX, oldY);
+
+					// attempt to allow player to continue moving if player holding 
+					// two directional buttons, when one direction is colliding
+
+					// changes need to be made to check which part of player rect is colliding
+					// with map tile, allowing other direction to still be allowed.
+
+					/*if (newX < (mapTile.x + mapTile.w) || (newX + playerWidth) > mapTile.x) {
+						newX = oldX;
+					}
+					if (newY > (mapTile.y + mapTile.h) || (newY + playerHeight) > mapTile.y) {
+						newY = oldY;
+					}
+
+					setPosition(newX, newY);*/
 				}
 			}
 		}
@@ -230,9 +248,14 @@ void Player::setPosition(float x, float y)
 	dstRect.y = y;
 }
 
-void Player::setAngle(int x, int y)
+void Player::setThrowAngle(int x, int y)
 {
-	rotationAngle = (atan2((getY() + (getHeight() / 2) - y), (getX() - x)) * 180 / PI) - 90;
+	throwAngle = (atan2((getY() + (getHeight() / 2) - y), (getX() - x)) * 180 / PI) - 90;
+}
+
+void Player::setSpinAngle(int x, int y)
+{
+	spinAngle = (atan2((getY() + (getHeight() / 2) - y), (getX() - x)) * 180 / PI) - 90;
 }
 
 void Player::setScore(int _score)
@@ -292,9 +315,9 @@ float Player::getSpeed()
 	return speed;
 }
 
-float Player::getAngle() //const
+float Player::getThrowAngle() //const
 {
-	return rotationAngle;
+	return throwAngle;
 }
 
 int Player::getAmmo()
