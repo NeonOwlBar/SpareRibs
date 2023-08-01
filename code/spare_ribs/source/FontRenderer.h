@@ -9,6 +9,7 @@ class FontRenderer
 {
 public:
 	FontRenderer(SDL_Renderer* sdlRenderer);
+	~FontRenderer() { clean(); }
 	void init();
 	void render(std::string text);
 	void clean();

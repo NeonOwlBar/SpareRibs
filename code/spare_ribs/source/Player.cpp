@@ -56,8 +56,8 @@ void Player::render()
 	elapsedTime = (currentTime - startTime) / 1000;
 	timeStr = std::to_string(elapsedTime);	// updates value to current time
 
-	int animX = activeSprite[ammoLevel] * srcPlayerWidth;
-	int animY = animFrame;
+	animX = activeSprite[ammoLevel] * srcPlayerWidth;
+	animY = animFrame;
 	srcRect = { animX, animY, srcPlayerWidth, srcPlayerHeight };
 
 	SDL_GetMouseState(&mouseX, &mouseY);
@@ -72,9 +72,9 @@ void Player::render()
 	}
 	
 	// creating a health bar
-	int pixelWidth = windowWidth / 4;	// takes up 1/4 of the screen's width
-	float unitFactor = (float)pixelWidth / (float)maxHP;	//	100HP total, unit factor represents 1HP
-	int hpWidth = currentHP * unitFactor;
+	pixelWidth = windowWidth / 4;	// takes up 1/4 of the screen's width
+	unitFactor = (float)pixelWidth / (float)maxHP;	//	100HP total, unit factor represents 1HP
+	hpWidth = currentHP * unitFactor;
 	
 	healthBackground = { 275, 12, pixelWidth, 25 };	// red background bar
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
@@ -119,8 +119,8 @@ void Player::render()
 
 void Player::update()
 {
-	int oldX = getX();
-	int oldY = getY();
+	oldX = getX();
+	oldY = getY();
 
 	// Release UI surface and texture memory. 
 	// This is in the update function as it greatly decreases the number of CPU calls.
@@ -154,16 +154,16 @@ void Player::update()
 		walkingAnim();
 	}
 
-	int newX = getX();
-	int newY = getY();
-	SDL_Rect playerPos = { newX, newY + (playerHeight / 3), playerWidth, playerHeight * 2 / 3 };
+	newX = getX();
+	newY = getY();
+	playerPos = { newX, (int)(newY + (playerHeight / 3)), playerWidth, playerHeight * 2 / 3 };
 	for (int i = 0; i < 12; i++)
 	{
 		for (int j = 0; j < 16; j++)
 		{
 			if (mapPlayer->collisionLvl1[i][j] == 1)
 			{
-				SDL_Rect mapTile = { j * 50, i * 50, 50, 50 };
+				mapTile = { j * 50, i * 50, 50, 50 };
 
 				if (SDL_HasIntersection(&playerPos, &mapTile))
 				{
@@ -213,8 +213,6 @@ void Player::clean()
 	delete timerTxtTexture;
 	delete timerNum;
 	delete timerNumTexture;
-	// delete renderer;
-	// delete texture;
 	delete fontUI;
 
 	SDL_DestroyTexture(texture);
@@ -242,7 +240,7 @@ int Player::setAnimFrame()
 	return animFrame = 0;
 }
 
-void Player::setPosition(float x, float y)
+void Player::setPosition(int x, int y)
 {
 	dstRect.x = x;
 	dstRect.y = y;
@@ -285,22 +283,22 @@ void Player::setHealth(int change)
 	}
 }
 
-float Player::getX()
+int Player::getX()
 {
 	return dstRect.x;
 }
 
-float Player::getY()
+int Player::getY()
 {
 	return dstRect.y;
 }
 
-float Player::getWidth()
+int Player::getWidth()
 {
 	return dstRect.w;
 }
 
-float Player::getHeight()
+int Player::getHeight()
 {
 	return dstRect.h;
 }

@@ -24,23 +24,13 @@ void EnemyZombie::init()
 		// initiliased with default values
 		Zombie zombie;
 		// assigning undefined values
-		zombie.x = rand() % (250 - zomSizeX) + 500;
+		/*zombie.x = rand() % (250 - zomSizeX) + 500;
 		zombie.y = rand() % (500 - zomSizeY) + 50;
-		zombie.val = i + 1;
+		zombie.zomSpeed = rand() % 2 + 1;
+		zombie.val = i + 1;*/
 		zombies.push_back(zombie);
-
-		//zombies.push_back(Zombie{ 
-		//	rand() % (250 - zomSizeX) + 500,	// x pos
-		//	rand() % (500 - zomSizeY) + 50,		// y pos
-		//	1,									// speed
-		//	2,									// health
-		//	2,									// max health
-		//	40,									// pixel width
-		//	40 / 2,								// unit factor = pixel width / max health
-		//	i + 1								// value
-		//  false								// hitWall
-		//	});
 	}
+	spawnWave();
 }
 
 void EnemyZombie::update()
@@ -128,9 +118,13 @@ void EnemyZombie::update()
 	{
 		animFrame = 1;
 	}
-	if (zombies.size() < MAX_ZOMBIES)	// if no. of zombies < max allowed
+	
+	// storage for zombies.size() prior to loop. 
+	// Required so zombies vector does not overflow
+	currentZomNum = zombies.size();
+	if (currentZomNum < MAX_ZOMBIES)	// if no. of zombies < max allowed
 	{
-		for (int i = 0; i < MAX_ZOMBIES; i++)
+		for (int i = 0; i < (MAX_ZOMBIES - currentZomNum); i++)
 		{
 			zombies.push_back(Zombie{ 801, 50, 0 }); // xPos, yPos, speed
 		}
@@ -170,6 +164,13 @@ void EnemyZombie::render()
 void EnemyZombie::clean()
 {
 	SDL_DestroyTexture(this->zombieTexture);
+	SDL_DestroyRenderer(this->renderer);
+
+	mapZom = nullptr;
+	projectileManager = nullptr;
+
+	delete mapZom;
+	delete projectileManager;
 }
 
 void EnemyZombie::spawnWave()
@@ -179,7 +180,7 @@ void EnemyZombie::spawnWave()
 		z.x = rand() % (250 - zomSizeX) + 500;
 		z.y = rand() % (500 - zomSizeY) + 50;
 		z.health = z.maxHealth;
-		z.zomSpeed = 1;
+		z.zomSpeed = rand() % 2 + 1;
 		z.isAlive = true;
 	}
 }

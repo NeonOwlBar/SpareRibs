@@ -17,12 +17,15 @@ class ProjectileManager
 	friend class EnemyZombie;	// gives EnemyZombie access to private variables
 public:
 	ProjectileManager(SDL_Renderer* renderer, Player* player) : renderer(renderer), player(player) {}
+	~ProjectileManager() { clean(); }
 
 	struct Rib
 	{
-		float x, y, throwRotation, spinRotation, distance;
+		int x, y;	// if you get a tonne of conversion errors, change these back to floats
+		float throwRotation, spinRotation, distance;
 		int velocity = 8;
 		bool isThrowable = true;
+		SDL_Rect ribRect;
 	};
 
 	void init();
@@ -44,7 +47,11 @@ private:
 	std::vector<Rib> ribs;
 	Player* player;
 
-	
+	SDL_Rect playerRect;
+	SDL_Rect nullRect;
+
+	SDL_Rect mapTile;
+	SDL_Rect ribDest;
 
 	// time limit between shots
 	const int SHOOT_TIMER_MS = 500;
@@ -58,5 +65,9 @@ private:
 	int windowHeight = 600;
 
 	int mouseX, mouseY;
+
+	// To store rib values to reduce calls to player class.
+	int ribSpawnX, ribSpawnY;
+	float ribThrowRot;
 };
 

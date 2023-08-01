@@ -22,7 +22,7 @@ void ProjectileManager::init()
 	// add six ribs to rib vector
 	for (int i = 0; i < 6; i++) {
 		// generates initial data for a rib
-		Rib rib = Rib{ 900, 0, player->getThrowAngle(), 0.0f, 0.0f, 0 };
+		Rib rib = Rib{ 900, 0, 0.0f, 0.0f, 0.0f, 0 };
 		// ribs is the vector used to contain all rib objects
 		// push_back is the function in C++ which adds an element to the end of a vector
 		ribs.push_back(rib);
@@ -45,6 +45,7 @@ void ProjectileManager::processInput()
 				// checks if ribs is throwable (not already thrown)
 				if (r.isThrowable == true) {
 					r.isThrowable = false;
+					// these are only called once per frame due to "break"
 					r.x = player->getX();
 					r.y = player->getY() + player->getHeight() / 2;
 					r.throwRotation = player->getThrowAngle();
@@ -63,13 +64,14 @@ void ProjectileManager::processInput()
 
 void ProjectileManager::update()
 {
+	// updates playerRect for frame
+	playerRect = { player->getX() - 10, player->getY() - 10, 80, 140 };
+
 	// auto keyword automatically defines type of variable based on type of variable assigned to it
 	// For loop iterates through the vector and creates a reference to an instance (r) for each object
 	for (auto& r : ribs)
 	{
-		SDL_Rect ribRect = { r.x, r.y, ribSizeX, ribSizeY };
-		SDL_Rect playerRect = { player->getX() - 10, player->getY() - 10, 80, 140 };
-		SDL_Rect nullRect;
+		r.ribRect = { r.x, r.y, ribSizeX, ribSizeY };
 
 		// includes code only required when rib is in mid-air
 		if (r.velocity != 0) {
@@ -82,7 +84,7 @@ void ProjectileManager::update()
 			r.distance += r.velocity;
 
 			// makes rib always look like its thrown forward
-			if (r.throwRotation > 0 || r.throwRotation < -190) {
+			if (r.throwRotation > 0 || r.throwRotation < -180) {
 				r.spinRotation += 10;
 			}
 			else {
@@ -95,8 +97,8 @@ void ProjectileManager::update()
 				{
 					if (mapRib->collisionLvl1[i][j] == 1)
 					{
-						SDL_Rect mapTile = { j * 50, i * 50, 50, 50 };
-						if (SDL_HasIntersection(&ribRect, &mapTile))
+						mapTile = { j * 50, i * 50, 50, 50 };
+						if (SDL_HasIntersection(&r.ribRect, &mapTile))
 						{
 							r.velocity = 0;
 						}
@@ -105,7 +107,7 @@ void ProjectileManager::update()
 			}
 		}
 
-		if (SDL_IntersectRect(&ribRect, &playerRect, &nullRect) && (r.velocity == 0) && (player->keyStates[INTERACT]))
+		if (SDL_IntersectRect(&r.ribRect, &playerRect, &nullRect) && (r.velocity == 0) && (player->keyStates[INTERACT]))
 		{
 			r.x = 900;
 			r.isThrowable = true;
@@ -131,15 +133,16 @@ void ProjectileManager::render()
 	// SDL_Point center = { 5, 5 };
 	for (auto& r : ribs)
 	{
-		SDL_Rect dest = { r.x, r.y, ribSizeX, ribSizeY };
+		ribDest = { r.x, r.y, ribSizeX, ribSizeY };
 		// rendering function is SDL_RenderCopyEx which has extended parameters to include rotation
-		SDL_RenderCopyEx(renderer, ribTexture, 0, &dest, r.spinRotation, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, ribTexture, 0, &ribDest, r.spinRotation, NULL, SDL_FLIP_NONE);
 	}
 }
 
 void ProjectileManager::clean()
 {
 	SDL_DestroyTexture(this->ribTexture);	// deletes texture which was allocated in the init function
+	SDL_DestroyRenderer(this->renderer);
 }
 
 int ProjectileManager::getMouseX()

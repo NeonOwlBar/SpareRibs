@@ -8,6 +8,7 @@ class TiledMap
 public:
 
 	TiledMap(SDL_Renderer* sdlRenderer, std::string tiledMapFilename);
+	~TiledMap() { clean(); }
 	// defining the tiled map with a 2D array
 	int mapData[12][16];	// each int in this array refers to a tile in the image
 

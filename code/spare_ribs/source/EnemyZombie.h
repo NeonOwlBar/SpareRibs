@@ -15,12 +15,12 @@ class EnemyZombie
 public:
 	EnemyZombie(SDL_Renderer* renderer, ProjectileManager* projectileManager, Player* player) : 
 		renderer(renderer), projectileManager(projectileManager), player(player) {}
-	virtual ~EnemyZombie() {}
+	~EnemyZombie() { clean(); }
 
 	struct Zombie
 	{
 		int x, y;
-		int zomSpeed = 1;
+		int zomSpeed = 2;
 		int health = 2;
 		int maxHealth = 2;
 		int pixelWidth = 40;
@@ -50,7 +50,8 @@ private:
 	Player* player;
 	const int hitTimerMS = 500;
 	unsigned int lastHit = 0;
-	const int MAX_ZOMBIES = 5;
+	const int MAX_ZOMBIES = 6;
+	int currentZomNum;
 
 	const int FRAME_COUNT = 5;
 	const int TILESHEET_WIDTH = 5;

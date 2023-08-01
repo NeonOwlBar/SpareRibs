@@ -236,6 +236,10 @@ void GameLoop::clean()
 	delete tiledMap;
 	delete pm;
 	delete zombie;
+
+	SDL_FreeSurface(screenSurface);
+	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+
 	SDL_Quit();
 }

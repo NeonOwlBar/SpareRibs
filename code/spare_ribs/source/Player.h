@@ -42,20 +42,19 @@ public:
 	
 	void walkingAnim();
 	int setAnimFrame();
-	void setPosition(float x, float y);
+	void setPosition(int x, int y);
 	void setThrowAngle(int x, int y);
 	void setSpinAngle(int x, int y);
 	void setAmmo(int change);
 	void setHealth(int change);
 	void setScore(int score);
 
-	float getX();
-	float getY();
-	float getWidth();
-	float getHeight();
+	int getX();
+	int getY();
+	int getWidth();
+	int getHeight();
 	float getSpeed();	// allows speed to be read-only by other classes
 	float getThrowAngle(); //const;	// makes angle accessible to other classes
-	float getSpinAngle();
 	int getAmmo();
 	int getHealth();
 	int getScore();
@@ -68,10 +67,16 @@ private:
 	int elapsedTime = 0;
 	std::string timeStr;
 
-	float speed = 3;	// player speed
+	SDL_Rect mapTile;
+
+	float speed = 2;	// player speed
 	float throwAngle;	// for shooting in direction of mouse
 	float spinAngle;	// for spinning rib
 	int ammoLevel = 6;
+
+	int pixelWidth;
+	float unitFactor;
+	int hpWidth;
 	int maxHP = 100;
 	int currentHP = 100;
 	int score = 0;
@@ -80,10 +85,23 @@ private:
 	float windowWidth = 0;
 	float windowHeight = 0;
 
-	float playerWidth;
-	float playerHeight;
+	int playerWidth;
+	int playerHeight;
 	const int srcPlayerWidth = 80;
 	const int srcPlayerHeight = 155;
+
+	// player positioning
+	int oldX, oldY;
+	int newX, newY;
+	SDL_Rect playerPos;
+
+	int mouseX, mouseY;	// for player sprite looking in direction of mouse
+
+	// for sprite sheets
+	int animX, animY;
+	int animFrame = 0;	// sets "height" of srcRect during animation loop. 0 is idle.
+	int ANIMATION_SPEED = 200; // number of ms between frames
+	long int lastAnimChange = 0;
 
 	// score UI
 	SDL_Color colourUI = { 255, 255, 255, 255 };	// sets colour of score UI
@@ -110,10 +128,5 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	SDL_Texture* texture = nullptr;
 	TTF_Font* fontUI = nullptr;
-
-	int mouseX, mouseY;	// for player sprite looking in direction of mouse
-	int animFrame = 0;	// sets "height" of srcRect during animation loop. 0 is idle.
-	int ANIMATION_SPEED = 200; // number of ms between frames
-	long int lastAnimChange = 0;
 };
 

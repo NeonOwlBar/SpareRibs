@@ -85,4 +85,5 @@ void TiledMap::render()
 void TiledMap::clean()
 {
 	SDL_DestroyTexture(this->texture);	// deletes texture which was allocated in the init function
+	SDL_DestroyRenderer(this->renderer);
 }

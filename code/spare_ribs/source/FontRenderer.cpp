@@ -41,4 +41,7 @@ void FontRenderer::clean()
 {
 	// Free up all the resources we used to render
 	TTF_CloseFont(font);
+	font = nullptr;
+	delete font;
+	SDL_DestroyRenderer(renderer);
 }
