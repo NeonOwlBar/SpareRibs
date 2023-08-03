@@ -37,6 +37,7 @@ void EnemyZombie::update()
 {
 	if (zombiesDefeated >= MAX_ZOMBIES)
 	{
+		setMaxZombies(1);
 		spawnWave();
 	}
 
@@ -118,17 +119,6 @@ void EnemyZombie::update()
 	{
 		animFrame = 1;
 	}
-	
-	// storage for zombies.size() prior to loop. 
-	// Required so zombies vector does not overflow
-	currentZomNum = zombies.size();
-	if (currentZomNum < MAX_ZOMBIES)	// if no. of zombies < max allowed
-	{
-		for (int i = 0; i < (MAX_ZOMBIES - currentZomNum); i++)
-		{
-			zombies.push_back(Zombie{ 801, 50, 0 }); // xPos, yPos, speed
-		}
-	}
 }
 
 void EnemyZombie::render()
@@ -176,11 +166,33 @@ void EnemyZombie::clean()
 void EnemyZombie::spawnWave()
 {
 	zombiesDefeated = 0;
+
+	checkZomNum();
+
 	for (auto &z : zombies) {
 		z.x = rand() % (250 - zomSizeX) + 500;
 		z.y = rand() % (500 - zomSizeY) + 50;
 		z.health = z.maxHealth;
 		z.zomSpeed = rand() % 2 + 1;
 		z.isAlive = true;
+	}
+}
+
+void EnemyZombie::setMaxZombies(int change)
+{
+	MAX_ZOMBIES += change;
+}
+
+void EnemyZombie::checkZomNum()
+{
+	// storage for zombies.size() prior to loop. 
+	// Required so zombies vector does not overflow
+	currentZomNum = zombies.size();
+	if (currentZomNum < MAX_ZOMBIES)	// if no. of zombies < max allowed
+	{
+		for (int i = 0; i < (MAX_ZOMBIES - currentZomNum); i++)
+		{
+			zombies.push_back(Zombie{ 801, 50, 0 }); // xPos, yPos, speed
+		}
 	}
 }

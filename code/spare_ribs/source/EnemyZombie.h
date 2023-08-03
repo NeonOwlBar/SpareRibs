@@ -36,6 +36,8 @@ public:
 	void clean();
 
 	void spawnWave();
+	void setMaxZombies(int change);
+	void checkZomNum();
 
 	TiledMap* mapZom;
 
@@ -50,7 +52,7 @@ private:
 	Player* player;
 	const int hitTimerMS = 500;
 	unsigned int lastHit = 0;
-	const int MAX_ZOMBIES = 6;
+	int MAX_ZOMBIES = 6;
 	int currentZomNum;
 
 	const int FRAME_COUNT = 5;
