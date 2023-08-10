@@ -71,6 +71,7 @@ void ProjectileManager::update()
 	// For loop iterates through the vector and creates a reference to an instance (r) for each object
 	for (auto& r : ribs)
 	{
+		// updates individual rib rect for frame
 		r.ribRect = { r.x, r.y, ribSizeX, ribSizeY };
 
 		// includes code only required when rib is in mid-air
@@ -107,7 +108,10 @@ void ProjectileManager::update()
 			}
 		}
 
-		if (SDL_IntersectRect(&r.ribRect, &playerRect, &nullRect) && (r.velocity == 0) && (player->keyStates[INTERACT]))
+
+		if (SDL_IntersectRect(&r.ribRect, &playerRect, &nullRect) 
+			&& (r.velocity == 0) 
+			&& (player->keyStates[INTERACT]))
 		{
 			r.x = 900;
 			r.isThrowable = true;

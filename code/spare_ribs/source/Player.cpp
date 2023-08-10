@@ -137,20 +137,18 @@ void Player::update()
 	{
 		setPosition(getX() - getSpeed(), getY());
 		walkingAnim();
-	}
-	if (keyStates[RIGHT])
+	} else if (keyStates[RIGHT])
 	{
-		setPosition(getX() + (float)getSpeed(), getY());
+		setPosition(getX() + getSpeed(), getY());
 		walkingAnim();
 	}
 	if (keyStates[UP])
 	{
 		setPosition(getX(), getY() - getSpeed());
 		walkingAnim();
-	}
-	if (keyStates[DOWN])
+	} else if (keyStates[DOWN])
 	{
-		setPosition(getX(), getY() + (float)getSpeed());
+		setPosition(getX(), getY() + getSpeed());
 		walkingAnim();
 	}
 

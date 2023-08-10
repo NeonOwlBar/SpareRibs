@@ -61,7 +61,7 @@ void EnemyZombie::update()
 				if (z.health <= 0)
 				{
 					z.zomSpeed = 0;
-					z.x = 801;	// this is checked later to move the zombie
+					z.x = 801;	// moves zombie off screen
 					z.isAlive = false;
 					zombiesDefeated += 1;
 					player->setScore(1);
@@ -83,9 +83,9 @@ void EnemyZombie::update()
 		// allows zombies to fit through smaller gaps
 		zombieRect = { z.x + 10, z.y + (zomSizeY / 3), zomSizeX - 20, zomSizeY * 2 / 3 };
 		z.hitWall = false;
-		for (int i = 0; i < 12; i++)
+		for (int i = 0; i < 12; i++) // column
 		{
-			for (int j = 0; j < 16; j++)
+			for (int j = 0; j < 16; j++) // row
 			{
 				if (z.hitWall == false) {
 					if (mapZom->collisionLvl1[i][j] == 1)
@@ -168,6 +168,8 @@ void EnemyZombie::spawnWave()
 	zombiesDefeated = 0;
 
 	checkZomNum();
+
+	animFrame = 0;
 
 	for (auto &z : zombies) {
 		z.x = rand() % (250 - zomSizeX) + 500;
